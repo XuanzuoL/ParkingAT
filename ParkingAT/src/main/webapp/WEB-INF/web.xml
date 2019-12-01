@@ -13,6 +13,5 @@
     <param-name>MONGODB_PORT</param-name>
     <param-value>27017</param-value>
   </context-param>
-  
 
 </web-app>
