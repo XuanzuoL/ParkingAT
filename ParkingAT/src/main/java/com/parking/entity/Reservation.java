@@ -1,54 +1,57 @@
 package com.parking.entity;
 
 import java.sql.Date;
-import java.sql.Time;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
 public class Reservation {
 	private String ReservationID;
-    private String CustomerID;
-    private Date Date;
-    private Time StartTime;
-    private String PaymentId;
-    private boolean Cancellation;
+    private String userID;
+    private Date checkIn;
+    private Date checkOut;
+    private String paymentId;
+    //private boolean Cancellation;
     private String GarageID;
-    private boolean Paid;
+    private boolean isPaid;
+    private String spots;
+    private double price;
+    
 	public String getReservationID() {
 		return ReservationID;
 	}
 	public void setReservationID(String reservationID) {
 		ReservationID = reservationID;
 	}
-	public String getCustomerID() {
-		return CustomerID;
+	public String getUserID() {
+		return userID;
 	}
-	public void setCustomerID(String customerID) {
-		CustomerID = customerID;
+	public void setUserID(String customerID) {
+		userID = customerID;
 	}
-	public Date getDate() {
-		return Date;
+	public Date getStartTime() {
+		return checkIn;
 	}
-	public void setDate(Date date) {
-		Date = date;
+	public void setStartTime(Date checkin) {
+		checkIn = checkin;
 	}
-	public Time getStartTime() {
-		return StartTime;
+	public Date getEndTime() {
+		return checkOut;
 	}
-	public void setStartTime(Time startTime) {
-		StartTime = startTime;
+	public void setEndTime(Date time) {
+		checkOut= time;
 	}
+	
 	public String getPaymentId() {
-		return PaymentId;
+		return paymentId;
 	}
 	public void setPaymentId(String paymentId) {
-		PaymentId = paymentId;
+		this.paymentId = paymentId;
 	}
-	public boolean getCancellation() {
-		return Cancellation;
+	public double getPrice() {
+		return price;
 	}
-	public void setCancellation(boolean cancellation) {
-		Cancellation = cancellation;
+	public void setPrice(double price) {
+		this.price = price;
 	}
 	public String getGarageID() {
 		return GarageID;
@@ -57,9 +60,15 @@ public class Reservation {
 		GarageID = garageID;
 	}
 	public boolean getPaid() {
-		return Paid;
+		return isPaid;
 	}
 	public void setPaid(boolean paid) {
-		Paid = paid;
+		isPaid = paid;
+	}
+	public void setSpots(String spot){
+		spots = spot;
+	}
+	public String getSpots(){
+		return spots;
 	}
 }

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.mongodb.MongoClient;
 import com.parking.entity.Customer;
@@ -45,13 +46,20 @@ public class customerLogin extends HttpServlet {
 		
 		MongoDBCustomerDAO CustomerDAO = new MongoDBCustomerDAO(mongo);
 		CustomerDAO.findCustomer(email,Password);
+		Customer c = new Customer();
+		c = CustomerDAO.findCustomer(email,Password);
+		HttpSession session = null;
 		
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		if(CustomerDAO.findCustomer(email,Password)!=true) {
+		if(CustomerDAO.findCustomer(email,Password) == null) {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/customerlogin.html");
 			rd.forward(request, response);
 		}else {
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/homepage.html");
+			//HttpSession session;
+			System.out.println("name:"+c.getName());
+			session.setAttribute("customer", c);
+			
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/customerProfile.jsp");
 			rd.forward(request, response);}
 	}
 

@@ -34,10 +34,14 @@ public class MongoDBAdministerDAO {
 	}
 	
 	
-	public boolean findAdminister(String email, String password) {
+	public Administer findAdminister(String email, String password) {
 		DBObject query = new BasicDBObject("adminEmail", email).append("adminPassword", password);
 		
-		return this.col.findOne(query) !=null;
+		if(this.col.findOne(query) !=null) {
+			DBObject data = this.col.findOne(query);
+			return AdministerConverter.toAdminister(data);
+		}else {
+		return null;}
 	}
 	
 	public void updateAdminister(Administer c) {

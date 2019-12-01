@@ -46,7 +46,7 @@ public class garageLogin extends HttpServlet {
 		GarageOwnerDAO.findGarageOwner(email,Password);
 		
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		if(GarageOwnerDAO.findGarageOwner(email,Password)!=true) {
+		if(GarageOwnerDAO.findGarageOwner(email,Password)==null) {
 			System.out.println("fail");
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/garagelogin.html");
 			rd.forward(request, response);

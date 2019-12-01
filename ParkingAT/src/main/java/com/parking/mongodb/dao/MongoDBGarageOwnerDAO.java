@@ -38,10 +38,15 @@ public class MongoDBGarageOwnerDAO {
 	}
 	
 	
-	public boolean findGarageOwner(String email, String password) {
+	public GarageOwner findGarageOwner(String email, String password) {
 		DBObject query = new BasicDBObject("email", email).append("password", password);
+		if(this.col.findOne(query) !=null) {
+			DBObject data = this.col.findOne(query);
+			return GarageOwnerConverter.toGarageOwner(data);
+		}else {
+			return null;
+		}
 		
-		return this.col.findOne(query) !=null;
 	}
 	
 	public void updateGarageOwner(GarageOwner c) {

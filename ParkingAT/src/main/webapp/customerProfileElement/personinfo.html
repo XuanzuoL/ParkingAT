@@ -12,11 +12,11 @@
     <form class="updateprofile" action ="editCustomer" method="post">
         <div class="form-label-group">
                 <label for="inputUsername">Name</label>
-                <input type="text" id="inputUsername" name="name" class="form-control" placeholder="Username" required autofocus>
+                <input type="text" id="inputUsername" name="name" class="form-control" value="${requestScope.customer.name}" required autofocus>
         </div>
         <div class="form-label-group">
                     <label for="inputEmail">Email</label>
-                <input type="email" id="inputEmail" name="email" class="form-control" placeholder="email address" required >
+                <input type="email" id="inputEmail" name="email" class="form-control" value="${requestScope.customer.email}" required >
          </div>
         <div class="form-label-group">
             <label for="inputphone">Phone</label>

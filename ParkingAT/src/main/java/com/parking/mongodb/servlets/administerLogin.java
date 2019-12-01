@@ -46,7 +46,7 @@ public class administerLogin extends HttpServlet {
 		AdministerDAO.findAdminister(email,Password);
 		
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		if(AdministerDAO.findAdminister(email,Password)!=true) {
+		if(AdministerDAO.findAdminister(email,Password)== null) {
 			System.out.println("fail");
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/Admin.html");
 			rd.forward(request, response);

@@ -44,10 +44,21 @@ public class MongoDBCustomerDAO {
 	}
 	
 	
-	public boolean findCustomer(String email, String password) {		
-		DBObject query = new BasicDBObject("email", email).append("password", password);
+	public Customer findCustomer(String email, String password) {		
 		
-		return this.col.findOne(query) !=null;
+		
+			DBObject query = new BasicDBObject("email", email).append("password", password);
+				
+			if(this.col.findOne(query)!=null) {
+				DBObject data = this.col.findOne(query);
+				return CustomerConverter.toCustomer(data);
+			}else
+			{
+				return null;
+			}
+			
+			
+		
 	}
 	
 	public void updateCustomer(Customer c) {
