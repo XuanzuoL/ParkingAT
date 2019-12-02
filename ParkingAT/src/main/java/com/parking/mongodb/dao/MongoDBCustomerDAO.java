@@ -26,12 +26,8 @@ import com.parking.mongodb.converter.CustomerConverter;
 public class MongoDBCustomerDAO {
 	
 	private DBCollection col;
-	
-	
-	
-	public MongoDBCustomerDAO(MongoClient mongo) {
 		
-		
+	public MongoDBCustomerDAO(MongoClient mongo) {		
 		mongo = new MongoClient("localhost", 27017);
 		DB db = mongo.getDB("parking");
 		this.col = db.getCollection("customer");
@@ -43,10 +39,8 @@ public class MongoDBCustomerDAO {
 		return c;
 	}
 	
-	
 	public Customer findCustomer(String email, String password) {		
-		
-		
+				
 			DBObject query = new BasicDBObject("email", email).append("password", password);
 				
 			if(this.col.findOne(query)!=null) {
@@ -56,9 +50,6 @@ public class MongoDBCustomerDAO {
 			{
 				return null;
 			}
-			
-			
-		
 	}
 	
 	public void updateCustomer(Customer c) {

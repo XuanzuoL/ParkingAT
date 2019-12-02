@@ -1,6 +1,7 @@
 package com.parking.mongodb.servlets;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -33,34 +34,12 @@ public class customerLogin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		HttpSession session=request.getSession();
 		
-		String email = request.getParameter("email");
-		String Password = request.getParameter("password");
-		
-		System.out.println("email:"+email);
-		System.out.println("Password:"+Password);
-		
-		MongoClient mongo = (MongoClient) request.getServletContext()
-				.getAttribute("MONGO_CLIENT");
-		
-		MongoDBCustomerDAO CustomerDAO = new MongoDBCustomerDAO(mongo);
-		CustomerDAO.findCustomer(email,Password);
-		Customer c = new Customer();
-		c = CustomerDAO.findCustomer(email,Password);
-		HttpSession session = null;
-		
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		if(CustomerDAO.findCustomer(email,Password) == null) {
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/customerlogin.html");
-			rd.forward(request, response);
-		}else {
-			//HttpSession session;
-			System.out.println("name:"+c.getName());
-			session.setAttribute("customer", c);
-			
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/customerProfile.jsp");
-			rd.forward(request, response);}
+		session.invalidate();
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/customerlogin.html");
+		rd.forward(request, response);
+
 	}
 
 	/**
@@ -68,7 +47,25 @@ public class customerLogin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		String email = request.getParameter("email");
+		String Password = request.getParameter("password");
+		
+		MongoClient mongo = (MongoClient) request.getServletContext()
+				.getAttribute("MONGO_CLIENT");
+		
+		MongoDBCustomerDAO CustomerDAO = new MongoDBCustomerDAO(mongo);
+		CustomerDAO.findCustomer(email,Password);
+//		Customer customer = new Customer();
+//		customer = CustomerDAO.findCustomer(email,Password);
+		if(CustomerDAO.findCustomer(email,Password) == null) {
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/customerlogin.html");
+			rd.forward(request, response);
+		}else {
+			HttpSession session=request.getSession();	
+			Customer customer = CustomerDAO.findCustomer(email,Password);
+			session.setAttribute("customer", customer);	
+			//Customer customer = (Customer)session.getAttribute("customer");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/homepage.jsp");
+			rd.forward(request, response);}
 	}
-
 }
